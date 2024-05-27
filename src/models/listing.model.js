@@ -1,7 +1,12 @@
 import mongoose from "mongoose";
+import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
 const listingSchema = new mongoose.Schema(
   {
+    propertyType: {
+      type: String,
+      required: [true, "Property type is required"], // Residential, Commercial, Industrial, Agriculture, Riverbed, Island
+    },
     title: {
       type: String,
       required: [true, "Title is required"],
@@ -56,5 +61,7 @@ const listingSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+listingSchema.plugin(mongooseAggregatePaginate);
 
 export const Listing = mongoose.model("LIsting", listingSchema);

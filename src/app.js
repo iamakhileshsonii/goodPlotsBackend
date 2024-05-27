@@ -1,26 +1,18 @@
 import express from "express";
-import cookieParser from "cookie-parser";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
-// CROSS ORIGIN : Allow the data to fetch from origin
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN,
-    optionsSuccessStatus: 200, //
+    credentials: true,
   })
 );
 
-// Get data from URL
-app.use(
-  express.urlencoded({
-    limit: "16kb",
-    extended: true,
-  })
-);
+app.use(cookieParser());
 
-// Get data in JSON format
 app.use(
   express.json({
     limit: "16kb",
@@ -29,7 +21,19 @@ app.use(
 
 app.use(express.static("public"));
 
-// Cookie Parser
-app.use(cookieParser());
+app.use(
+  express.urlencoded({
+    limit: "16kb",
+    extended: true,
+  })
+);
+
+// ROUTES IMPORT
+import userRouter from "./routes/user.routes.js";
+
+// ROUTES DECLERATION
+app.use("/api/v1/user", userRouter);
+
+// Register API: http://localhost:9001/api/v1/user/register
 
 export { app };
