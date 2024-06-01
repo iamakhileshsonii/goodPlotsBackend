@@ -10,6 +10,7 @@ import {
   updatePassword,
   updateAvatar,
   currentUserInfo,
+  getAllUsersData,
 } from "../controllers/user.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import { upload } from "../middlewares/multer.middleware.js";
@@ -25,6 +26,7 @@ router
   .patch(verifyJWT, upload.single("avatar"), updateAvatar);
 router.route("/user-profile").get(verifyJWT, currentUserInfo);
 
+router.route("/get-all-users").get(getAllUsersData);
 export default router;
 
 // Route: localhost://9001/

@@ -215,6 +215,15 @@ const updateAvatar = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, updateNewAvatar, "Avatar updated successfully"));
 });
 
+//LIST OF ALL USERS
+const getAllUsersData = asyncHandler(async (req, res) => {
+  const userList = await User.find();
+  console.log(userList);
+  return res
+    .status(200)
+    .json(new ApiResponse(200, userList, "All user data fetched successfully"));
+});
+
 export {
   generateAccessAndRefreshToken,
   registerUser,
@@ -223,4 +232,5 @@ export {
   updatePassword,
   updateAvatar,
   currentUserInfo,
+  getAllUsersData,
 };
